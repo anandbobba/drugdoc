@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    title Login User
+  body
+    h1 Login
+
+    //- Display flash messages
+    if success_messages.length
+      div.alert.alert-success
+        each msg in success_messages
+          p= msg
+
+    if error_messages.length
+      div.alert.alert-danger
+        each msg in error_messages
+          p= msg
+          
+    form(action="/users/login" method="POST")
+      div
+        label(for="email") Email:
+        input(type="email" name="email" id="email" placeholder="Enter your email" required)
+      div
+        label(for="password") Password:
+        input(type="password" name="password" id="password" placeholder="Enter your password" required)
+      div
+        button(type="submit") Login
