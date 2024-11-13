@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logoImage from '../assets/doctor6.jpeg'; 
 import doctorImage from '../assets/doctor3.png'; // Login image for Drug Doc
-
+import axios from 'axios';
 const SignIn = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -32,15 +32,26 @@ const SignIn = () => {
     return errorMessages.length === 0;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  
 
-    if (validateForm()) {
-      setSuccessMessage('Login successful!');
-      setErrors([]);
-      setTimeout(() => navigate('/home'), 1000); // Navigate to /home after a brief delay
-    }
-  };
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      axios.post('http://localhost:3001/signin',formData)
+      .then((res) => {
+        console.log(res.data);
+       if(res.data.message){
+         setErrors([res.data.message]);
+        }else{
+          setSuccessMessage('Login Successful');
+          navigate('/home');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    };
+  
+  
 
   return (
     <div

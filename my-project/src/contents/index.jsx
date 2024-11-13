@@ -12,7 +12,7 @@ import loginimage from "../assets/loginimage.png";
 
 
 export const navItems = [
-  { label: "Home", href: "/" },
+  { label: "Home", href: "/home" },
   { label: "DiseaseSearch", href: "/DiseaseSearch" },
   { label: "DosageSafetyCheck", href: "/DosageSafetyCheck" },
   { 

@@ -1,14 +1,14 @@
-// src/components/HeroSection.jsx
 import React from "react";
 import Typical from 'react-typical';
 import ScrollAnimation from 'react-animate-on-scroll';
-import doctorImage from '../assets/doctor1.png'; // Adjust the path as necessary
+import doctorImage from '../assets/loginimage.png'; // Adjust the path as necessary
 import "animate.css";
 
 const HeroSection = () => {
     return (
         <section 
-            className="bg-blue-600 text-white text-center py-10 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+            className=" text-white text-center p-8 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-[0_0_20px_rgba(0,0,0,0.5)] rounded-lg mx-auto"
+            style={{ maxWidth: '600px', marginTop: '20px', fontFamily: 'Nova Flat, sans-serif' }}
         >
             {/* Typing effect for welcome message */}
             <h1 className="text-4xl font-bold mb-4">
@@ -26,12 +26,12 @@ const HeroSection = () => {
                 </p>
             </ScrollAnimation>
 
-            <div className="mt-8">
+            <div className="mt-6">
                 {/* Image with hover effect */}
                 <img 
                     src={doctorImage} 
                     alt="Doctor" 
-                    className="mx-auto w-1/3 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-[0_0_20px_10px_rgba(255,255,255,0.6)] rounded-lg"
+                    className="mx-auto w-2/3 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-[0_0_20px_10px_rgba(255,255,255,0.6)] rounded-lg"
                 />
             </div>
         </section>

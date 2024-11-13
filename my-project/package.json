@@ -16,6 +16,7 @@
     "@mui/icons-material": "^6.1.6",
     "@mui/material": "^6.1.6",
     "animate.css": "^4.1.1",
+    "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "framer-motion": "^11.11.12",
     "lucide-react": "^0.456.0",

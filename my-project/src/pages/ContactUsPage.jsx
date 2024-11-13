@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import doctorImage from '../assets/doctor11.png';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -34,13 +35,28 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-8 px-4">
-      <h1 className="text-4xl font-bold text-center mb-8">Contact Us</h1>
-      <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-8" initial="hidden" animate="visible" variants={staggerAnimation}>
+    <div className="max-w-7xl mx-auto mt-8 px-4 flex flex-col md:flex-row items-center md:items-start space-y-8 md:space-y-0 md:space-x-8">
+      
+      {/* Image Section */}
+      <div className="w-full md:w-2/3 flex justify-center md:justify-start md:ml-8">
+        <img
+          src={doctorImage}
+          alt="Doctor"
+          className="w-full h-auto md:w-[200%] rounded-lg transform md:-translate-x-4"
+        />
+      </div>
+
+      {/* Forms Section */}
+      <motion.div 
+        className="w-full md:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-8"
+        initial="hidden" 
+        animate="visible" 
+        variants={staggerAnimation}
+      >
         
         {/* Contact Form */}
-        <motion.div className="bg-white p-6 rounded-lg shadow-lg" variants={formAnimation}>
-          <h2 className="text-2xl font-semibold mb-4">Get in Touch</h2>
+        <motion.div className="bg-white p-8 rounded-lg shadow-lg md:max-w-4xl w-full" variants={formAnimation}>
+          <h2 className="text-2xl font-semibold mb-5">Get in Touch</h2>
           <p className="text-gray-700 mb-4">
             We are here to help. Feel free to reach out for any inquiries or support.
           </p>
@@ -92,9 +108,9 @@ const ContactUs = () => {
         </motion.div>
 
         {/* Address Section */}
-        <motion.div className="bg-gray-100 p-6 rounded-lg shadow-lg" variants={formAnimation}>
+        <motion.div className="bg-white p-8 rounded-lg shadow-lg md:max-w-lg" variants={formAnimation}>
           <h2 className="text-2xl font-semibold mb-4">Our Address</h2>
-          <p className="text-lg text-gray-700 mb-4">
+          <p className="text-gray-700 mb-4">
             You can also reach us at our office address or contact our support team directly.
           </p>
           <p className="text-lg text-gray-700">123 Main Street, City, Country</p>

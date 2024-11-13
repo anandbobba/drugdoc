@@ -3,11 +3,11 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
-import Home from './pages/HomePAGE';
+import Home from './pages/HomePage';
 import DiseaseSearch from './pages/DiseaseSearchPage';
 import DosageSafetyCheck from './pages/DosageSafetyCheckPage';
 import VideoCall from './pages/VideoCallPage';
-import Chatbot from './pages/ChatBotPage';
+// import Chatbot from './pages/ChatBotPage';
 
 import ContactUs from './pages/ContactUsPage';
 import SignUpPage from './pages/SignUpPage';
@@ -23,12 +23,23 @@ const App = () => {
   const showNavbarAndFooter = !hideElementsPaths.includes(location.pathname);
 
   return (
-    <div className="font-sans bg-gray-100 min-h-screen flex flex-col">
+    <div className="font-sans bg-gray-100 flex flex-col min-h-screen overflow-hidden">
       {/* Conditionally render Navbar */}
       {showNavbarAndFooter && <Navbar />}
 
-      {/* Main content area */}
-      <div className="flex-grow container mx-auto p-4">
+      {/* Main content area with gradient background */}
+      <div
+        className="flex-grow overflow-hidden"
+        style={{
+          background: '#7474BF',  /* fallback for old browsers */
+          background: '-webkit-linear-gradient(to right, #348AC7, #7474BF)',  /* Chrome 10-25, Safari 5.1-6 */
+          background: 'linear-gradient(to right, #348AC7, #7474BF)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+          
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         <Routes>
           {/* Route for SignUpPage as default route */}
           <Route path="/" element={<SignUpPage />} />
@@ -38,10 +49,9 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/diseasesearch" element={<DiseaseSearch />} />
           <Route path="/dosagesafetycheck" element={<DosageSafetyCheck />} />
-       
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/videocall" element={<VideoCall />} />
-          <Route path="/chatbot" element={< Chatbot/>} />
+          {/* <Route path="/chatbot" element={<Chatbot />} /> */}
         </Routes>
       </div>
 

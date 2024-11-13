@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import doctorImage from "../assets/doctor10.png"; // Adjust path if needed
 import Button from '@mui/material/Button';
-import SearchIcon from '@mui/icons-material/Search'; // Importing the search icon
+import SearchIcon from '@mui/icons-material/Search';
 import Stack from '@mui/material/Stack';
 
 const DiseaseSearch = () => {
@@ -19,7 +19,7 @@ const DiseaseSearch = () => {
     };
 
     return (
-        <div className="flex items-center p-4">
+        <div className="flex items-center p-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
             {/* Left Section with Image */}
             <div className="mr-4">
                 <img src={doctorImage} alt="Doctor" className="w-64 max-w-full" />
@@ -28,7 +28,7 @@ const DiseaseSearch = () => {
             {/* Right Section with Search Form */}
             <aside className="flex-grow">
                 {/* Header */}
-                <h2 className="text-3xl font-bold mb-3 text-black">
+                <h2 className="text-3xl font-bold mb-3 text-black" style={{ fontFamily: 'Host Grotesk, sans-serif' }}>
                     Disease Search
                 </h2>
                 <p className="mb-4 text-black">

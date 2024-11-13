@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import doctorImage from '../assets/doctor2.png'; // Signup image on the left side
 import logoImage from '../assets/doctor6.jpeg'; // Logo image for Drug Doc
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -8,7 +10,12 @@ const Signup = () => {
     email: '',
     password: '',
   });
+  const navigate = useNavigate();
 
+
+
+  
+  
   const [errors, setErrors] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -34,12 +41,14 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (validateForm()) {
-      setSuccessMessage('Registration successful!');
-      setErrors([]);
-      // Handle the form submission logic here (like API call)
-    }
+    axios.post('http://localhost:3001/',formData)
+    .then((res) => {
+      console.log(res.data);
+      navigate('/signin');
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   };
 
   return (
