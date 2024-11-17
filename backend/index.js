@@ -40,4 +40,16 @@ Auth.create(req.body)
 
 app.listen(3001, () => {
     console.log('Server is running on port 3001');
-    });
+});
+    
+
+
+// app.get("api/notes/:id", (req, res) => {
+//     const note = notes.find(n) => n._id === req.params.id);
+// res.send(note);
+// });
+
+// app.get("/api/notes/:id", (req, res) => {
+//     const note = notes.find((n) => n._id === req.params.id);
+//     res.send(note);
+// });
