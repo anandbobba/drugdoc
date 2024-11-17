@@ -7,7 +7,7 @@ import "animate.css";
 const HeroSection = () => {
     return (
         <section 
-            className=" text-white text-center p-8 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-[0_0_20px_rgba(0,0,0,0.5)] rounded-lg mx-auto"
+            className=" text-white text-center p-8 transition-transform duration-300 ease-in-out transform hover:scale-105 rounded-lg mx-auto"
             style={{ maxWidth: '600px', marginTop: '20px', fontFamily: 'Nova Flat, sans-serif' }}
         >
             {/* Typing effect for welcome message */}

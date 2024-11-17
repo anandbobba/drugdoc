@@ -1,23 +1,19 @@
-import React, { useState } from 'react';
-import doctorImage from '../assets/doctor2.png'; // Signup image on the left side
-import logoImage from '../assets/doctor6.jpeg'; // Logo image for Drug Doc
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import doctorImage from "../assets/doctor2.png"; // Signup image on the left side
+import logoImage from "../assets/doctor6.jpeg"; // Logo image for Drug Doc
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
   });
   const navigate = useNavigate();
 
-
-
-  
-  
   const [errors, setErrors] = useState([]);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,8 +28,10 @@ const Signup = () => {
     const errorMessages = [];
 
     if (!name) errorMessages.push("Name is required.");
-    if (!email || !/\S+@\S+\.\S+/.test(email)) errorMessages.push("Valid email is required.");
-    if (!password || password.length < 6) errorMessages.push("Password must be at least 6 characters.");
+    if (!email || !/\S+@\S+\.\S+/.test(email))
+      errorMessages.push("Valid email is required.");
+    if (!password || password.length < 6)
+      errorMessages.push("Password must be at least 6 characters.");
 
     setErrors(errorMessages);
     return errorMessages.length === 0;
@@ -41,14 +39,15 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/',formData)
-    .then((res) => {
-      console.log(res.data);
-      navigate('/signin');
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    axios
+      .post("http://localhost:3001/", formData)
+      .then((res) => {
+        console.log(res.data);
+        navigate("/signin");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -57,39 +56,57 @@ const Signup = () => {
       style={{
         height: "100vh",
         width: "100vw",
-        background: "linear-gradient(to bottom right, skyblue, #00c6ff, #0072ff)",
+        background:
+          "linear-gradient(to bottom right, skyblue, #00c6ff, #0072ff)",
       }}
     >
       {/* Logo and Title at the Top Left Corner */}
       <div className="absolute top-4 left-4 flex items-center space-x-4">
-        <img src={logoImage} alt="Drug Doc Logo" className="w-12 h-12 rounded-full object-cover" />
+        <img
+          src={logoImage}
+          alt="Drug Doc Logo"
+          className="w-12 h-12 rounded-full object-cover"
+        />
         <h1 className="text-black font-serif text-4xl font-bold">Drug Doc</h1>
       </div>
 
-      {/* Image on the left side */}
-      <div className="lg:w-1/2 w-full h-full flex justify-center items-center">
-        <img src={doctorImage} alt="Signup" className="w-full h-full object-cover" />
+      {/* Image on the left side (hidden on mobile screens) */}
+      <div className="lg:w-1/2 w-full h-full  justify-center items-center hidden lg:block">
+        <img
+          src={doctorImage}
+          alt="Signup"
+          className="w-full h-full object-cover"
+        />
       </div>
 
       {/* Signup form on the right side */}
       <div className="lg:w-1/2 w-full max-w-lg p-6">
         <div className="text-center mb-6">
           <p className="text-lg text-black font-mono font-semibold">
-            Welcome to our platform! Please fill in the form below to create a new account. We are excited to have you join our community.
+            Welcome to our platform! Please fill in the form below to create a
+            new account. We are excited to have you join our community.
           </p>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:shadow-2xl hover:translate-y-1 hover:translate-z-1">
-          <h1 className="text-3xl font-semibold text-center text-black mb-6 shadow-md">Create an Account</h1>
+          <h1 className="text-3xl font-semibold text-center text-black mb-6 shadow-md">
+            Create an Account
+          </h1>
 
           {/* Success Message */}
-          {successMessage && <div className="bg-green-500 text-white text-center p-2 rounded mb-4 shadow-md">{successMessage}</div>}
+          {successMessage && (
+            <div className="bg-green-500 text-white text-center p-2 rounded mb-4 shadow-md">
+              {successMessage}
+            </div>
+          )}
 
           {/* Error Messages */}
           {errors.length > 0 && (
             <div className="bg-red-500 text-white p-2 rounded mb-4 shadow-md">
               {errors.map((error, index) => (
-                <p key={index}><strong>{error}</strong></p>
+                <p key={index}>
+                  <strong>{error}</strong>
+                </p>
               ))}
             </div>
           )}
@@ -97,7 +114,12 @@ const Signup = () => {
           <form onSubmit={handleSubmit}>
             {/* Name Field */}
             <div className="mb-4">
-              <label htmlFor="name" className="block text-black font-bold mb-2 shadow-md">Full Name</label>
+              <label
+                htmlFor="name"
+                className="block text-black font-bold mb-2 shadow-md"
+              >
+                Full Name
+              </label>
               <input
                 type="text"
                 id="name"
@@ -112,7 +134,12 @@ const Signup = () => {
 
             {/* Email Field */}
             <div className="mb-4">
-              <label htmlFor="email" className="block text-black font-bold mb-2 shadow-md">Email Address</label>
+              <label
+                htmlFor="email"
+                className="block text-black font-bold mb-2 shadow-md"
+              >
+                Email Address
+              </label>
               <input
                 type="email"
                 id="email"
@@ -127,7 +154,12 @@ const Signup = () => {
 
             {/* Password Field */}
             <div className="mb-4">
-              <label htmlFor="password" className="block text-black font-bold mb-2 shadow-md">Password</label>
+              <label
+                htmlFor="password"
+                className="block text-black font-bold mb-2 shadow-md"
+              >
+                Password
+              </label>
               <input
                 type="password"
                 id="password"
@@ -150,8 +182,10 @@ const Signup = () => {
           </form>
 
           <p className="text-center text-gray-600 mt-4">
-            Already have an account?{' '}
-            <a href="/signin" className="text-blue-500 hover:text-blue-700"><strong>Login here</strong></a>
+            Already have an account?{" "}
+            <a href="/signin" className="text-blue-500 hover:text-blue-700">
+              <strong>Login here</strong>
+            </a>
           </p>
         </div>
       </div>
