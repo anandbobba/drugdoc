@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Typical from "react-typical";
+import { Typewriter } from "react-simple-typewriter"; 
 import doctorImage from "../assets/doctor19.png"; // Adjust path as necessary
 import "../styles/PregnancyDescription.css"; // Adjust the path for custom CSS
 
@@ -19,10 +19,14 @@ const PregnancyDescriptionPage = () => {
       <div className="left-side">
         {/* Typing effect for the title */}
         <h1 className="title">
-          <Typical
-            steps={["Pregnancy Safety and Medicine", 1500]}
+          <Typewriter
+            words={["Pregnancy Safety and Medicine"]}
             loop={1}
-            wrapper="p"
+            cursor
+            cursorStyle="_"
+            typeSpeed={100}
+            deleteSpeed={50}
+            delaySpeed={1000}
           />
         </h1>
 

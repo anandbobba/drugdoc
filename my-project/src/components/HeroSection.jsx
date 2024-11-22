@@ -1,23 +1,19 @@
 import React, { useState, memo } from "react";
-import Typical from "react-typical";
+import { Typewriter as TypewriterEffect } from "react-simple-typewriter"; // New import
+
 import ScrollAnimation from "react-animate-on-scroll";
 import doctorImage from "../assets/loginimage.png"; // Adjust the path as necessary
 import "animate.css";
 import "../styles/HeroSection.css"; // Adjust the path based on your folder structure
 
 // Memoized TypingEffect component
-const TypingEffect = memo(() => {
+const LocalTypewriter = memo(() => {
   return (
     <h1 className="text-4xl font-bold mb-4">
-      <Typical
-        steps={[
-          "Welcome to DRUG DOC",
-          1500,
-          "Your trusted health companion!",
-          1500,
-        ]}
-        loop={Infinity}
-        wrapper="p"
+      <TypewriterEffect
+        words={["Welcome to DRUG DOC", "Your trusted health companion!"]}
+        loop={true}
+        cursor
       />
     </h1>
   );
@@ -42,7 +38,7 @@ const HeroSection = () => {
       }}
     >
       {/* Typing effect for welcome message */}
-      <TypingEffect />
+      <LocalTypewriter />
 
       {/* Scroll animation for tagline */}
       <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut">
