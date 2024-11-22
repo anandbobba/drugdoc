@@ -39,7 +39,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/signup",
+        "https://drugdoc-aaqj.vercel.app/signup",
         formData,
         {
           headers: {
@@ -122,6 +122,10 @@ const Signup = () => {
                 onChange={handleChange}
                 className="w-full p-3 border rounded-md"
                 placeholder="Enter your full name"
+                style={{
+                  color: "black",
+                  backgroundColor: "transparent",
+                }}
                 required
               />
             </div>
@@ -141,6 +145,10 @@ const Signup = () => {
                 onChange={handleChange}
                 className="w-full p-3 border rounded-md"
                 placeholder="Enter your email"
+                style={{
+                  color: "black",
+                  backgroundColor: "transparent",
+                }}
                 required
               />
             </div>
@@ -160,6 +168,10 @@ const Signup = () => {
                 onChange={handleChange}
                 className="w-full p-3 border rounded-md"
                 placeholder="Enter your password"
+                style={{
+                  color: "black",
+                  backgroundColor: "transparent",
+                }}
                 required
               />
             </div>

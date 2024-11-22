@@ -34,7 +34,7 @@ const SignIn = ({ setIsLoggedIn }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/signin",
+        "https://drugdoc-aaqj.vercel.app/signin",
         formData
       );
 
@@ -121,6 +121,10 @@ const SignIn = ({ setIsLoggedIn }) => {
                 onChange={handleChange}
                 className="w-full p-3 border rounded-md"
                 placeholder="Enter your email"
+                style={{
+                  color: "black",
+                  backgroundColor: "transparent",
+                }}
                 required
               />
             </div>
@@ -139,6 +143,10 @@ const SignIn = ({ setIsLoggedIn }) => {
                 onChange={handleChange}
                 className="w-full p-3 border rounded-md"
                 placeholder="Enter your password"
+                style={{
+                  color: "black",
+                  backgroundColor: "transparent",
+                }}
                 required
               />
             </div>

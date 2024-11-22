@@ -14,8 +14,8 @@ app.use(express.json());
 // CORS configuration with credentials support
 app.use(
   cors({
-    // origin: "http://localhost:5173", // Replace with your frontend's URL
-    // credentials: true, // Enable credentials (cookies)
+    origin: "https://drugdoc-aaqj.vercel.app", // Replace with your frontend's URL
+    credentials: true, // Enable credentials (cookies)
   })
 );
 
