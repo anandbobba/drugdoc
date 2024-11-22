@@ -11,9 +11,9 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://drugdoc-ai.vercel.app/",
-    methods: ["GET", "POST"],
-    credentials: true,
+    // origin: "https://drugdoc-ai.vercel.app/",
+    // methods: ["GET", "POST"],
+    // credentials: true,
   })
 );
 
@@ -25,7 +25,7 @@ mongoose
     console.error("Failed to connect to MongoDB:", err);
     process.exit(1);
   });
-  
+
 app.get("/", (req, res) => {
   res.json({ message: "Hello, world!" });
 }
