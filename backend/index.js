@@ -27,7 +27,10 @@ mongoose
     console.error("Failed to connect to MongoDB:", err);
     process.exit(1);
   });
-
+app.get("/", (req, res) => {
+  res.json({ message: "Hello, world!" });
+}
+);
 // Authentication routes
 app.post("/signin", (req, res) => {
   const { email, password } = req.body;
