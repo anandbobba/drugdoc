@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import doctorImage from "../assets/doctor15.png"; // Doctor image (large)
 import profileImage from "../assets/doctor9.png"; // Profile image
 import doctorSideImage from "../assets/doctor12.png"; // New doctor image for right side
-
+import "../styles/DosageSafetyCheck.css"; // Adjust the path as needed
 const DosageSafetyCheck = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -59,20 +59,20 @@ const DosageSafetyCheck = () => {
   return (
     <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between px-4 py-6">
       {/* Left Section: Form */}
-      <div className="w-full lg:w-1/2 bg-white p-6 rounded-lg shadow-lg mt-6"> {/* Adjusted margin-top */}
+      <div className="w-full lg:w-1/2 bg-white p-6 rounded-lg shadow-lg mt-6">
+        {" "}
+        {/* Adjusted margin-top */}
         {/* Typing effect for the title */}
         <h2
-          className="text-2xl font-bold mb-4 animate-typing"
+          className="text-2xl font-bold mb-4 typing-effect"
           style={{ fontFamily: "'Geist Mono', monospace" }}
         >
           Dosage Safety Check
         </h2>
-
         {/* Paragraph text outside the white box */}
         <p className="mb-3 text-black">
           Enter details below to check dosage interactions.
         </p>
-
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name, Age, Gender Inputs */}
           <input
@@ -151,7 +151,9 @@ const DosageSafetyCheck = () => {
       </div>
 
       {/* Right Section: Profile with Dropdown and Doctor Image */}
-      <div className="w-full lg:w-1/2 flex flex-col items-center justify-end relative mt-8 lg:mt-12"> {/* Adjusted margin-top */}
+      <div className="w-full lg:w-1/2 flex flex-col items-center justify-end relative mt-8 lg:mt-12">
+        {" "}
+        {/* Adjusted margin-top */}
         {/* Profile Dropdown Toggle (Logo click) */}
         <img
           src={profileImage}
@@ -161,7 +163,6 @@ const DosageSafetyCheck = () => {
           }`}
           onClick={toggleDropdown}
         />
-
         {/* Dropdown menu */}
         {showDropdown && profile && (
           <div className="absolute top-12 right-0 bg-white p-4 shadow-lg rounded-lg z-10">
@@ -176,12 +177,11 @@ const DosageSafetyCheck = () => {
             </button>
           </div>
         )}
-
         {/* New Doctor Image on the Right, hidden on mobile */}
         <img
           src={doctorSideImage}
           alt="Doctor"
-          className="w-90 h-auto object-cover mx-auto mt-3 hidden lg:block"  
+          className="w-90 h-auto object-cover mx-auto mt-3 hidden lg:block"
         />
       </div>
     </div>

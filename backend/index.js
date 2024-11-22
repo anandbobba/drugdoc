@@ -1,55 +1,77 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const Auth = require('./models/auth-db');
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const Auth = require("./models/auth-db");
+
+require("dotenv").config();
 
 const app = express();
+
+// Middleware setup
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+  // {
+  //   origin: "http://localhost:5000",
+  //   methods: ["GET", "POST"],
+  //   credentials: true
 
-// Connect to MongoD
-mongoose.connect('mongodb://127.0.0.1:27017/auth-db');
+  // }
 
-app.post('/signin', (req, res) => {
-    Auth.findOne
-    ({ email
-    : req.body.email, password: req.body.password })
+));
+
+
+// MongoDB connection
+mongoose
+  .connect(process.env.MONGO_URI)  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => {
+    console.error("Failed to connect to MongoDB:", err);
+    process.exit(1);
+  });
+
+// Authentication routes
+app.post("/signin", (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res
+      .status(400)
+      .json({ message: "Email and password are required." });
+  }
+
+  Auth.findOne({ email, password })
     .then((data) => {
-        if (data) {
-            res.json(data);
-        } else {
-            res.json({ message: 'Invalid credentials' });
-        }
-    })
-    .catch((err) => {
-        res.json(err);
-    });
-}
-);
-
-app.post('/', (req, res) => {
-Auth.create(req.body)
-    .then((data) => {
+      if (data) {
         res.json(data);
+      } else {
+        res.status(401).json({ message: "Invalid credentials" });
+      }
     })
     .catch((err) => {
-        res.json(err);
-    }); 
+      console.error("Error during sign-in:", err);
+      res.status(500).json({ error: "Internal Server Error", details: err });
+    });
 });
 
+app.post("/signup", (req, res) => {
+  const { email, password } = req.body;
 
-app.listen(3001, () => {
-    console.log('Server is running on port 3001');
+  if (!email || !password) {
+    return res
+      .status(400)
+      .json({ message: "Email and password are required." });
+  }
+
+  Auth.create(req.body)
+    .then((data) => {
+      res.status(201).json(data);
+    })
+    .catch((err) => {
+      console.error("Error during signup:", err);
+      res.status(400).json({ error: "Bad Request", details: err });
+    });
 });
-    
 
-
-// app.get("api/notes/:id", (req, res) => {
-//     const note = notes.find(n) => n._id === req.params.id);
-// res.send(note);
-// });
-
-// app.get("/api/notes/:id", (req, res) => {
-//     const note = notes.find((n) => n._id === req.params.id);
-//     res.send(note);
-// });
+// Start the server
+app.listen(5000, () => {
+  console.log(`Server running on http://localhost:5000`);
+});

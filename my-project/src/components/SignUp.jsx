@@ -40,7 +40,7 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3001/", formData)
+      .post("http://localhost:5000/signup", formData)
       .then((res) => {
         console.log(res.data);
         navigate("/signin");

@@ -12,18 +12,19 @@ import loginimage from "../assets/loginimage.png";
 
 
 export const navItems = [
-  { label: "Home", href: "/home" },
-  { label: "DiseaseSearch", href: "/DiseaseSearch" },
-  { label: "DosageSafetyCheck", href: "/DosageSafetyCheck" },
-  { 
-    label: "Consultation", 
+  { label: "Home 🏠", href: "/home" },
+  { label: "Disease Search 🧟‍♂️", href: "/DiseaseSearch" },
+  { label: "Dosage Safety Check 🤒", href: "/DosageSafetyCheck" },
+  { label: "Pregnancy Description  🤷‍♀️", href: "/pregnancydescription" },
+  {
+    label: "Consultation 😷",
     items: [
-      { label: "Chatbot", href: "/chatbot" },
-      { label: "Video Call", href: "/VideoCall" },
+      { label: "Chatbot 🤖", href: "/chatbot" },
+      { label: "Video Call 💻", href: "/VideoCall" },
     ],
   },
-  { label: "Contact Us", href: "/ContactUs" },
-{ label: "LogOut", href: "/" }
+  { label: "Contact Us  ☎", href: "/ContactUs" },
+  // { label: "LogOut", href: "/" },
 ];
 
 export const Home = [

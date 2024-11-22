@@ -1,6 +1,6 @@
 // import React, { useRef } from "react";
 // import { motion } from "framer-motion";
-// import VideoCall from "./VideoCallPage"; 
+// import VideoCall from "./VideoCallPage";
 
 // function Chatbot() {
 //   const chatbotRef = useRef(); // Ref for scrolling to the chatbot
@@ -46,3 +46,15 @@
 // }
 
 // export default Chatbot;
+
+
+import React from "react";
+import ChatBot from "../components/ChatBot";
+
+const App = () => (
+  <div>
+    <ChatBot />
+  </div>
+);
+
+export default ChatBot;
