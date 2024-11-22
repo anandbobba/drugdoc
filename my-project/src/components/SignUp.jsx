@@ -13,7 +13,6 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const [errors, setErrors] = useState([]);
-  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,29 +24,37 @@ const Signup = () => {
 
   const validateForm = () => {
     const { name, email, password } = formData;
-    const errorMessages = [];
-
-    if (!name) errorMessages.push("Name is required.");
-    if (!email || !/\S+@\S+\.\S+/.test(email))
-      errorMessages.push("Valid email is required.");
-    if (!password || password.length < 6)
-      errorMessages.push("Password must be at least 6 characters.");
-
-    setErrors(errorMessages);
-    return errorMessages.length === 0;
+    const newErrors = [];
+    if (!name.trim()) newErrors.push("Name is required.");
+    if (!/\S+@\S+\.\S+/.test(email)) newErrors.push("Valid email is required.");
+    if (password.length < 6)
+      newErrors.push("Password must be at least 6 characters.");
+    setErrors(newErrors);
+    return newErrors.length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:5000/signup", formData)
-      .then((res) => {
-        console.log(res.data);
+    if (!validateForm()) return;
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/signup",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 201) {
         navigate("/signin");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      }
+    } catch (error) {
+      setErrors([
+        error.response?.data?.error || "Signup failed. Please try again.",
+      ]);
+    }
   };
 
   return (
@@ -71,7 +78,7 @@ const Signup = () => {
       </div>
 
       {/* Image on the left side (hidden on mobile screens) */}
-      <div className="lg:w-1/2 w-full h-full  justify-center items-center hidden lg:block">
+      <div className="lg:w-1/2 w-full h-full justify-center items-center hidden lg:block">
         <img
           src={doctorImage}
           alt="Signup"
@@ -93,31 +100,18 @@ const Signup = () => {
             Create an Account
           </h1>
 
-          {/* Success Message */}
-          {successMessage && (
-            <div className="bg-green-500 text-white text-center p-2 rounded mb-4 shadow-md">
-              {successMessage}
-            </div>
-          )}
-
           {/* Error Messages */}
           {errors.length > 0 && (
-            <div className="bg-red-500 text-white p-2 rounded mb-4 shadow-md">
+            <div className="bg-red-500 text-white p-2 rounded mb-4">
               {errors.map((error, index) => (
-                <p key={index}>
-                  <strong>{error}</strong>
-                </p>
+                <p key={index}>{error}</p>
               ))}
             </div>
           )}
 
           <form onSubmit={handleSubmit}>
-            {/* Name Field */}
             <div className="mb-4">
-              <label
-                htmlFor="name"
-                className="block text-black font-bold mb-2 shadow-md"
-              >
+              <label htmlFor="name" className="block text-black font-bold mb-2">
                 Full Name
               </label>
               <input
@@ -126,17 +120,16 @@ const Signup = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-500 rounded-md bg-black text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 border rounded-md"
                 placeholder="Enter your full name"
                 required
               />
             </div>
 
-            {/* Email Field */}
             <div className="mb-4">
               <label
                 htmlFor="email"
-                className="block text-black font-bold mb-2 shadow-md"
+                className="block text-black font-bold mb-2"
               >
                 Email Address
               </label>
@@ -146,17 +139,16 @@ const Signup = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-500 rounded-md bg-black text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 border rounded-md"
                 placeholder="Enter your email"
                 required
               />
             </div>
 
-            {/* Password Field */}
             <div className="mb-4">
               <label
                 htmlFor="password"
-                className="block text-black font-bold mb-2 shadow-md"
+                className="block text-black font-bold mb-2"
               >
                 Password
               </label>
@@ -166,8 +158,8 @@ const Signup = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full p-3 border border-gray-500 rounded-md bg-black text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter a strong password"
+                className="w-full p-3 border rounded-md"
+                placeholder="Enter your password"
                 required
               />
             </div>

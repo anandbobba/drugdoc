@@ -40,7 +40,8 @@ const Navbar = () => {
             </div>
           </div>
 
-          <ul className="hidden md:flex space-x-3 text-white font-semibold ml-auto justify-end items-center">
+          {/* Desktop Navigation */}
+          <ul className="hidden md:flex space-x-3 text-white font-normal ml-auto justify-end items-center">
             {navItems.map((item, index) => (
               <li key={index} className="relative group">
                 <NavLink
@@ -105,11 +106,12 @@ const Navbar = () => {
           </button>
         </div>
 
+        {/* Mobile Navigation */}
         {isMobileMenuOpen && (
           <div className="md:hidden bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-4">
             <ul className="text-center">
               {navItems.map((item, index) => (
-                <li key={index} className="font-semibold">
+                <li key={index} className="font-normal">
                   <NavLink
                     to={item.href || "#"}
                     className="block px-4 py-2 rounded-md transition duration-200 hover:bg-gray-300 hover:text-black shadow-sm"

@@ -1,79 +1,97 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const Auth = require("./models/auth-db");
+const bcrypt = require("bcrypt");
+const dotenv = require("dotenv");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const UserModel = require("./model/User");
 
-require("dotenv").config();
-
+dotenv.config();
 const app = express();
-
-// Middleware setup
 app.use(express.json());
+
+// CORS configuration with credentials support
 app.use(
   cors({
-    // origin: "https://drugdoc-ai.vercel.app/",
-    // methods: ["GET", "POST"],
-    // credentials: true,
+    // origin: "http://localhost:5173", // Replace with your frontend's URL
+    // credentials: true, // Enable credentials (cookies)
   })
 );
 
-
-// MongoDB connection
+// Connect to MongoDB
 mongoose
-  .connect(process.env.MONGO_URI)  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => {
-    console.error("Failed to connect to MongoDB:", err);
-    process.exit(1);
-  });
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("Failed to connect to MongoDB", err));
 
-app.get("/", (req, res) => {
-  res.json({ message: "Hello, world!" });
-}
+// Session setup
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+    }),
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      secure: false, // Set to true if using HTTPS in production
+      httpOnly: true, // Prevents JavaScript access to cookies
+      sameSite: "lax", // Ensures the cookie is sent with cross-origin requests
+    },
+  })
 );
-// Authentication routes
-app.post("/signin", (req, res) => {
-  const { email, password } = req.body;
 
-  if (!email || !password) {
-    return res
-      .status(400)
-      .json({ message: "Email and password are required." });
+// Sign-up route
+app.post("/signup", async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    if (!name || !email || !password)
+      return res.status(400).json({ error: "All fields are required." });
+
+    const existingUser = await UserModel.findOne({ email });
+    if (existingUser)
+      return res.status(400).json({ error: "Email already in use." });
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new UserModel({ name, email, password: hashedPassword });
+    await newUser.save();
+
+    res.status(201).json({ message: "User registered successfully." });
+  } catch (err) {
+    res.status(500).json({ error: "Internal server error." });
   }
+});
 
-  Auth.findOne({ email, password })
-    .then((data) => {
-      if (data) {
-        res.json(data);
-      } else {
-        res.status(401).json({ message: "Invalid credentials" });
+// Sign-in route
+app.post("/signin", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await UserModel.findOne({ email });
+
+    if (user) {
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (isMatch) {
+        req.session.user = { id: user._id, name: user.name, email: user.email };
+        return res.json({
+          status: "success",
+          message: "Login successful",
+          user: req.session.user,
+        });
       }
-    })
-    .catch((err) => {
-      console.error("Error during sign-in:", err);
-      res.status(500).json({ error: "Internal Server Error", details: err });
-    });
-});
+      return res
+        .status(401)
+        .json({ status: "error", message: "Invalid password" });
+    }
 
-app.post("/signup", (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res
-      .status(400)
-      .json({ message: "Email and password are required." });
+    res.status(404).json({ status: "error", message: "User not found" });
+  } catch (error) {
+    res.status(500).json({ status: "error", message: error.message });
   }
-
-  Auth.create(req.body)
-    .then((data) => {
-      res.status(201).json(data);
-    })
-    .catch((err) => {
-      console.error("Error during signup:", err);
-      res.status(400).json({ error: "Bad Request", details: err });
-    });
 });
 
-// Start the server
-app.listen(5000, () => {
-  console.log(`Server running on http://localhost:5000`);
+// Server setup
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
 });
