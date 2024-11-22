@@ -9,15 +9,13 @@ const app = express();
 
 // Middleware setup
 app.use(express.json());
-app.use(cors(
-  // {
-  //   origin: "http://localhost:5000",
-  //   methods: ["GET", "POST"],
-  //   credentials: true
-
-  // }
-
-));
+app.use(
+  cors({
+    origin: "https://drugdoc-ai.vercel.app/",
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
 
 
 // MongoDB connection
