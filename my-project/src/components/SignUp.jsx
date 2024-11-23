@@ -39,7 +39,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "https://drugdoc-aaqj.vercel.app/signup",
+        "https://localhost:3001/signup",
         formData,
         {
           headers: {

@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -14,8 +14,8 @@ app.use(express.json());
 // CORS configuration with credentials support
 app.use(
   cors({
-    origin: "https://drugdoc-aaqj.vercel.app", // Replace with your frontend's URL
-    credentials: true, // Enable credentials (cookies)
+    // origin: "https://drugdoc-aaqj.vercel.app", // Replace with your frontend's URL
+    // credentials: true, // Enable credentials (cookies)
   })
 );
 
