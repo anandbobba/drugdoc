@@ -11,7 +11,7 @@ const Footer = () => {
         {/* Social Media Icons */}
         <div className="flex justify-center space-x-6 mt-4">
           <a
-            href="https://github.com/your-username"
+            href="https://github.com/anandbobba"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white"
@@ -19,7 +19,7 @@ const Footer = () => {
             <FaGithub size={30} />
           </a>
           <a
-            href="https://linkedin.com/in/your-username"
+            href="https://linkedin.com/in/anandbobba"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white"
