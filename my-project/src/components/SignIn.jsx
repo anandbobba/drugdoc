@@ -34,7 +34,7 @@ const SignIn = ({ setIsLoggedIn }) => {
 
     try {
       const response = await axios.post(
-        "https://drugdoc-backend.onrender.com/signin",
+        "https://drugdoc-backend.onrender.com",
         formData
       );
 
