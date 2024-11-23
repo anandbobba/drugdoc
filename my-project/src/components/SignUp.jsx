@@ -39,7 +39,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "https://localhost:3001/signup",
+        "https://drugdoc-backend.onrender.com/signup",
         formData,
         {
           headers: {
